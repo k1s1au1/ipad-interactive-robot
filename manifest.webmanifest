@@ -1,0 +1,12 @@
+{
+  "name":"Interactive Robot for iPad",
+  "short_name":"Robot",
+  "description":"Touch-reactive robot experience for iPad Pro 11-inch.",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "orientation":"landscape",
+  "background_color":"#020713",
+  "theme_color":"#020713",
+  "icons":[{"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
