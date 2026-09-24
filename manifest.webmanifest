@@ -1,12 +1,12 @@
 {
-  "name":"Interactive Robot for iPad",
-  "short_name":"Robot",
-  "description":"Touch-reactive robot experience for iPad Pro 11-inch.",
+  "name":"Robot Quest",
+  "short_name":"Robot Quest",
+  "description":"Original touch-first 3D robot platform adventure for iPad.",
   "start_url":"./",
   "scope":"./",
   "display":"standalone",
   "orientation":"landscape",
-  "background_color":"#020713",
-  "theme_color":"#020713",
+  "background_color":"#08162f",
+  "theme_color":"#08162f",
   "icons":[{"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }
