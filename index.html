@@ -3,93 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no,maximum-scale=1" />
-  <meta name="theme-color" content="#020713" />
+  <meta name="theme-color" content="#08162f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Robot" />
+  <meta name="apple-mobile-web-app-title" content="Robot Quest" />
   <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./styles.css" />
-  <title>Interactive Robot</title>
+  <title>Robot Quest</title>
 </head>
 <body>
-  <main id="stage" aria-label="شاشة روبوت تفاعلية">
-    <canvas id="fx" aria-hidden="true"></canvas>
-    <div id="space" aria-hidden="true">
-      <i class="nebula n1"></i><i class="nebula n2"></i>
-      <i class="planet p1"></i><i class="planet p2"></i>
-      <i class="orbit o1"></i><i class="orbit o2"></i>
-      <div class="platform"></div>
-    </div>
+  <main id="game">
+    <canvas id="scene" aria-label="لعبة منصات ثلاثية الأبعاد"></canvas>
 
-    <section id="robotWrap" aria-label="الروبوت">
-      <div id="aura" aria-hidden="true"></div>
-      <svg id="robot" viewBox="0 0 600 650" role="img" aria-label="روبوت أبيض وأزرق لطيف">
-        <defs>
-          <linearGradient id="white" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".5" stop-color="#eaf4ff"/><stop offset="1" stop-color="#9caec2"/></linearGradient>
-          <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#20eaff"/><stop offset=".5" stop-color="#078cff"/><stop offset="1" stop-color="#0646c7"/></linearGradient>
-          <radialGradient id="visor" cx="50%" cy="34%" r="72%"><stop stop-color="#0b2e5f"/><stop offset=".38" stop-color="#031427"/><stop offset="1" stop-color="#00050d"/></radialGradient>
-          <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#00152c" flood-opacity=".8"/></filter>
-        </defs>
-
-        <g id="scarf" class="robot-part scarf" aria-hidden="true">
-          <path d="M395 321 C475 315 530 350 566 390 C507 377 461 382 410 410 C429 374 421 346 395 321Z" fill="url(#blue)" opacity=".95"/>
-        </g>
-
-        <g id="body" class="robot-part body" data-part="body" filter="url(#shadow)">
-          <path d="M210 312 Q300 272 390 312 L423 450 Q390 505 300 510 Q210 505 177 450Z" fill="url(#white)" stroke="#d7eaff" stroke-width="5"/>
-          <path d="M238 322 Q300 298 362 322 L350 410 Q300 438 250 410Z" fill="url(#blue)" opacity=".98"/>
-          <ellipse cx="300" cy="485" rx="78" ry="15" fill="#061d3d" opacity=".35"/>
-        </g>
-
-        <g id="leftLeg" class="robot-part leg" data-part="body">
-          <rect x="213" y="470" width="74" height="112" rx="35" fill="url(#white)" transform="rotate(8 250 526)"/>
-          <rect x="213" y="552" width="78" height="37" rx="16" fill="url(#blue)" transform="rotate(8 252 570)"/>
-          <ellipse cx="244" cy="602" rx="36" ry="25" fill="url(#blue)" transform="rotate(8 244 602)"/>
-        </g>
-        <g id="rightLeg" class="robot-part leg" data-part="body">
-          <rect x="313" y="470" width="74" height="112" rx="35" fill="url(#white)" transform="rotate(-8 350 526)"/>
-          <rect x="309" y="552" width="78" height="37" rx="16" fill="url(#blue)" transform="rotate(-8 348 570)"/>
-          <ellipse cx="356" cy="602" rx="36" ry="25" fill="url(#blue)" transform="rotate(-8 356 602)"/>
-        </g>
-
-        <g id="leftArm" class="robot-part arm left-arm" data-part="hand">
-          <rect x="127" y="320" width="85" height="64" rx="30" fill="url(#white)" transform="rotate(20 170 352)"/>
-          <rect x="91" y="286" width="73" height="56" rx="26" fill="url(#white)" transform="rotate(31 128 314)"/>
-          <rect x="74" y="270" width="58" height="46" rx="20" fill="url(#blue)" transform="rotate(31 103 293)"/>
-          <circle cx="83" cy="277" r="13" fill="#eaf7ff"/><circle cx="105" cy="265" r="13" fill="#eaf7ff"/><circle cx="124" cy="279" r="13" fill="#eaf7ff"/>
-        </g>
-        <g id="rightArm" class="robot-part arm right-arm" data-part="hand">
-          <rect x="388" y="322" width="84" height="64" rx="30" fill="url(#white)" transform="rotate(-16 430 354)"/>
-          <rect x="450" y="306" width="72" height="55" rx="25" fill="url(#white)" transform="rotate(-18 486 334)"/>
-          <rect x="493" y="302" width="58" height="46" rx="20" fill="url(#blue)" transform="rotate(-18 522 325)"/>
-          <circle cx="535" cy="298" r="12" fill="#eaf7ff"/><circle cx="551" cy="313" r="12" fill="#eaf7ff"/><circle cx="554" cy="335" r="12" fill="#eaf7ff"/>
-        </g>
-
-        <g id="neck"><ellipse cx="300" cy="316" rx="48" ry="25" fill="#8ba0b6"/><ellipse cx="300" cy="309" rx="39" ry="19" fill="#d8e4ef"/></g>
-
-        <g id="head" class="robot-part head" data-part="head" filter="url(#shadow)">
-          <path d="M146 90 Q300 18 454 90 Q493 118 486 235 Q477 298 415 325 Q300 368 185 325 Q123 298 114 235 Q107 118 146 90Z" fill="url(#white)" stroke="#eaf7ff" stroke-width="6"/>
-          <path d="M163 112 Q300 55 437 112 Q458 138 452 223 Q447 272 398 291 Q300 325 202 291 Q153 272 148 223 Q142 138 163 112Z" fill="url(#visor)" stroke="#0bbcff" stroke-width="5"/>
-          <path d="M177 127 Q265 83 385 103" fill="none" stroke="#fff" stroke-opacity=".17" stroke-width="12" stroke-linecap="round"/>
-          <g id="eyes" filter="url(#glow)">
-            <ellipse class="eye left-eye" cx="249" cy="201" rx="32" ry="21" fill="#28e7ff"/>
-            <ellipse class="eye right-eye" cx="351" cy="201" rx="32" ry="21" fill="#28e7ff"/>
-            <ellipse class="eye-shade" cx="249" cy="192" rx="36" ry="17" fill="#031427" opacity=".55"/>
-            <ellipse class="eye-shade" cx="351" cy="192" rx="36" ry="17" fill="#031427" opacity=".55"/>
-          </g>
-          <path d="M351 73 C356 25 390 14 412 39" fill="none" stroke="#dfefff" stroke-width="10" stroke-linecap="round"/>
-          <circle cx="416" cy="40" r="22" fill="url(#blue)" filter="url(#glow)"/>
-        </g>
-      </svg>
-      <div id="reactionLayer" aria-hidden="true"></div>
+    <section id="startScreen" class="screen">
+      <div class="panel">
+        <div class="logoMark">RQ</div>
+        <h1>Robot Quest</h1>
+        <p>مغامرة منصات سريعة بروح مرحة، مصممة للآيباد.</p>
+        <button id="startBtn" type="button">ابدأ اللعب</button>
+        <small>حرّك الروبوت، اقفز، اندفع، اجمع النجوم وأنقذ الرفقاء.</small>
+      </div>
     </section>
 
-    <button id="soundToggle" type="button" aria-label="تشغيل أو كتم الصوت"><span id="soundIcon">♪</span></button>
-    <div id="hint">المس • اسحب • اضغط مطولاً • استخدم إصبعين</div>
-    <div id="portrait"><div class="rotate">↻</div><div>دوّر الآيباد للوضع الأفقي</div></div>
+    <section id="hud" aria-label="واجهة اللعب">
+      <div class="hudLeft">
+        <div class="pill"><span class="dot starDot"></span><span id="stars">0</span><span>/ 8</span></div>
+        <div class="pill"><span class="dot friendDot"></span><span id="friends">0</span><span>/ 3</span></div>
+      </div>
+      <div class="hudRight">
+        <div id="hearts" class="hearts" aria-label="الصحة">♥ ♥ ♥</div>
+        <button id="pauseBtn" type="button" aria-label="إيقاف مؤقت">Ⅱ</button>
+      </div>
+    </section>
+
+    <div id="message" role="status" aria-live="polite"></div>
+
+    <section id="touchControls" aria-label="أزرار التحكم">
+      <div id="stickZone" class="stickZone" aria-label="عصا الحركة">
+        <div class="stickBase"><div id="stickKnob" class="stickKnob"></div></div>
+      </div>
+      <div class="actions">
+        <button id="spinBtn" class="action spin" type="button" aria-label="دوران">↻</button>
+        <button id="dashBtn" class="action dash" type="button" aria-label="اندفاع">»</button>
+        <button id="jumpBtn" class="action jump" type="button" aria-label="قفز">↑</button>
+      </div>
+    </section>
+
+    <section id="pauseScreen" class="screen hidden">
+      <div class="panel compact">
+        <h2>متوقف مؤقتاً</h2>
+        <button id="resumeBtn" type="button">متابعة</button>
+        <button id="restartBtn" class="secondary" type="button">إعادة المرحلة</button>
+      </div>
+    </section>
+
+    <section id="winScreen" class="screen hidden">
+      <div class="panel">
+        <div class="winIcon">★</div>
+        <h2>أنهيت المرحلة!</h2>
+        <p id="resultText"></p>
+        <button id="playAgainBtn" type="button">العب مرة ثانية</button>
+      </div>
+    </section>
+
+    <div id="portrait">
+      <div class="rotate">↻</div>
+      <div>دوّر الآيباد للوضع الأفقي</div>
+    </div>
   </main>
-  <script src="./app.js" defer></script>
+
+  <script type="module" src="./app.js"></script>
 </body>
 </html>
